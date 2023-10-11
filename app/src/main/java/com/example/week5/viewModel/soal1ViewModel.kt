@@ -13,7 +13,6 @@ class soal1ViewModel : ViewModel() {
 
     fun kurangiPercobaan() {
         val tmp = _uiState.value.jumlahPercobaan - 1
-
         _uiState.update {dataStateYangSekarang ->
             dataStateYangSekarang.copy(jumlahPercobaan = tmp)
         }
@@ -21,8 +20,9 @@ class soal1ViewModel : ViewModel() {
 
     fun acakAngka() {
         _uiState.value.angka = (1..10).random()
+        val tmp = _uiState.value.angka
         _uiState.update { currentData ->
-            currentData.copy(angka = _uiState.value.angka, jumlahPercobaan = 3, gameOver = false)
+            currentData.copy(angka = tmp, jumlahPercobaan = 3, gameOver = false)
         }
     }
 
@@ -31,8 +31,32 @@ class soal1ViewModel : ViewModel() {
         _uiState.update { currentData ->
             currentData.copy(score = tmp)
         }
-//        if (uiState.value.score == 3) {
-//            uiState.value.gameOver = true
-//        }
+    }
+
+    fun check(tebakan: String){
+        val tebakanAngka = tebakan.toIntOrNull()
+        if (tebakanAngka == _uiState.value.angka) {
+            tambahScore()
+            acakAngka()
+            dead()
+        } else {
+            kurangiPercobaan()
+            dead()
+        }
+    }
+
+    fun dead(){
+        if(_uiState.value.score == 3 || _uiState.value.jumlahPercobaan == 0){
+            _uiState.update { currentData ->
+                currentData.copy(gameOver = true)
+            }
+        }
+        if(_uiState.value.gameOver){
+            _uiState.value.angka = (1..10).random()
+            val tmp = _uiState.value.angka
+            _uiState.update { currentData ->
+                currentData.copy(angka = tmp, jumlahPercobaan = 3, gameOver = false, score = 0)
+            }
+        }
     }
 }
