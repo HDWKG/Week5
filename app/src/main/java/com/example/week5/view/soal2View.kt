@@ -44,97 +44,95 @@ fun soal2View(viewModel: soal2ViewModel) {
 
     Column(
         modifier = Modifier
-            .padding(16.dp)
             .fillMaxSize()
     ) {
-        Text(
-            text = "Courses",
-            style = TextStyle(
-                fontSize = 36.sp,
-                fontWeight = FontWeight.Bold
-            ),
-            modifier = Modifier.padding(8.dp)
-        )
-        Text(
-            text = "Total SKS: ${
-                viewModel.tot()
-            }",
-            modifier = Modifier.padding(8.dp)
-        )
-
-        Text(
-            text = "IPK: ${
-                viewModel.ipk()
-            }",
-            modifier = Modifier.padding(8.dp)
-        )
-
-
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            customTextField(
-                value = sks,
-                onValueChanged = { sks = it },
-                text = "SKS",
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Next
-                ),
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(8.dp)
-            )
-            customTextField(
-                value = score,
-                onValueChanged = { score = it },
-                text = "Score",
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Next
-                ),
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(8.dp)
-            )
-        }
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            customTextField(
-                value = nama,
-                onValueChanged = { nama = it },
-                text = "Name",
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Done
-                ),
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(8.dp)
-            )
-            Button(
-                onClick = {
-                    viewModel.addChk(nama, score, sks, context)
-                    nama = ""
-                    sks = ""
-                    score = ""
-                },
-                shape = RoundedCornerShape(40),
-                modifier = Modifier.size(60.dp)
-            ) {
-                Text(
-                    text = "+",
-                    style = TextStyle(fontSize = 24.sp)
-                )
-            }
-        }
-
         LazyColumn(
             content = {
+                item {
+                    Text(
+                        text = "Courses",
+                        style = TextStyle(
+                            fontSize = 36.sp,
+                            fontWeight = FontWeight.Bold
+                        ),
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    Text(
+                        text = "Total SKS: ${
+                            viewModel.tot()
+                        }",
+                        modifier = Modifier.padding(8.dp)
+                    )
+
+                    Text(
+                        text = "IPK: ${
+                            viewModel.ipk()
+                        }",
+                        modifier = Modifier.padding(8.dp)
+                    )
+
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        customTextField(
+                            value = sks,
+                            onValueChanged = { sks = it },
+                            text = "SKS",
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Next
+                            ),
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(8.dp)
+                        )
+                        customTextField(
+                            value = score,
+                            onValueChanged = { score = it },
+                            text = "Score",
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Next
+                            ),
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(8.dp)
+                        )
+                    }
+
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        customTextField(
+                            value = nama,
+                            onValueChanged = { nama = it },
+                            text = "Name",
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Done
+                            ),
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(8.dp)
+                        )
+                        Button(
+                            onClick = {
+                                viewModel.addChk(nama, score, sks, context)
+                                nama = ""
+                                sks = ""
+                                score = ""
+                            },
+                            shape = RoundedCornerShape(40),
+                            modifier = Modifier.size(60.dp)
+                        ) {
+                            Text(
+                                text = "+",
+                                style = TextStyle(fontSize = 24.sp)
+                            )
+                        }
+                    }
+                }
                 items(courses) { course ->
                     Card(
                         modifier = Modifier
@@ -159,10 +157,11 @@ fun soal2View(viewModel: soal2ViewModel) {
                         }
                     }
                 }
-            })
+            }
+        )
     }
-
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
